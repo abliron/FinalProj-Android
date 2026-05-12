@@ -10,12 +10,12 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="250dp"
-        android:layout_height="180dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="291dp"
+        android:layout_height="215dp"
+        android:layout_marginTop="112dp"
         android:contentDescription="@null"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.459"
+        app:layout_constraintHorizontal_bias="0.827"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo1" />
@@ -24,27 +24,27 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:text="Sign In"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#014373"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintHorizontal_bias="0.19"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        tools:layout_editor_absoluteY="124dp" />
 
     <EditText
         android:id="@+id/etSignInUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="28dp"
         android:backgroundTint="#48ADAB"
         android:ems="10"
         android:hint="User name:"
         android:inputType="text"
         android:textColorLink="#014373"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.13"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -52,21 +52,20 @@
         android:id="@+id/etSignInPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="12dp"
         android:backgroundTint="#48ADAB"
         android:ems="10"
         android:hint="Password:"
         android:inputType="textPassword"
         android:textColorLink="#014373"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etSignInUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/etSignInUsername"
+        tools:layout_editor_absoluteX="68dp" />
 
     <Button
         android:id="@+id/btnSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="28dp"
         android:backgroundTint="#14A192"
         android:text="Sign In"
         android:textAlignment="center"
@@ -74,6 +73,7 @@
         android:textStyle="bold|italic"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.202"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etSignInPassword" />
 
