@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="main_title_color">#014373</color>
+    <color name="success_bg">#FFFFFF</color>
+    <color name="success_text">#000000</color>
 </resources>
