@@ -52,6 +52,16 @@ class SingInPage : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val body = response.body()
                     Log.d(TAG, "Response body: $body")
+                    
+                    if (body?.requiresCompanySelection == true) {
+                        Log.d(TAG, "Company selection required")
+                        val intent = Intent(this@SingInPage, SelectCompanyActivity::class.java)
+                        intent.putExtra("selectionToken", body.selectionToken)
+                        startActivity(intent)
+                        finish()
+                        return
+                    }
+
                     val token = body?.token
                     if (token != null) {
                         Log.d(TAG, "Token received: $token")
@@ -60,19 +70,15 @@ class SingInPage : AppCompatActivity() {
 
                         Toast.makeText(this@SingInPage, "Login successful!", Toast.LENGTH_LONG).show()
                         
-                        // Navigate to success activity
-                        val intent = Intent(this@SingInPage, SuccessActivity::class.java)
+                        val intent = Intent(this@SingInPage, MenuActivity::class.java)
                         startActivity(intent)
                         finish()
                     } else {
-                        Log.e(TAG, "Response successful but token is null")
-                        Toast.makeText(this@SingInPage, "Login successful but no token received", Toast.LENGTH_SHORT).show()
-                        // Move to success anyway if the server says it's successful
-                        val intent = Intent(this@SingInPage, SuccessActivity::class.java)
-                        startActivity(intent)
-                        finish()
+                        Log.e(TAG, "Response successful but no token and no selection required. Body: $body")
+                        Toast.makeText(this@SingInPage, "שגיאה: לא התקבל טוקן מהשרת", Toast.LENGTH_LONG).show()
                     }
-                } else {
+                }
+else {
                     val errorBody = response.errorBody()?.string()
                     Log.e(TAG, "Login failed. Code: ${response.code()}, Error: $errorBody")
                     Toast.makeText(this@SingInPage, "Login failed: $errorBody", Toast.LENGTH_SHORT).show()

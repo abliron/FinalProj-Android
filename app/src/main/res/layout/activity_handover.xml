@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="24dp"
+            android:text="טופס קבלת/החזרת רכב"
+            android:textColor="#014373"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <!-- Vehicle Section -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="פרטי רכב"
+                    android:textColor="#014373"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spinnerVehicles"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp" />
+
+                <EditText
+                    android:id="@+id/etOdometer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="קילומטראז' נוכחי"
+                    android:inputType="number" />
+
+                <EditText
+                    android:id="@+id/etFuelLevel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="רמת דלק (למשל: 1/2, מלא)" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Driver Section -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="פרטי נהג"
+                    android:textColor="#014373"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spinnerDrivers"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Photos Section -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="תיעוד תמונות (חובה 4)"
+                    android:textColor="#014373"
+                    android:textStyle="bold" />
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:rowCount="2">
+
+                    <ImageButton
+                        android:id="@+id/btnPhotoFront"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="4dp"
+                        android:scaleType="centerInside"
+                        android:src="@android:drawable/ic_menu_camera" />
+
+                    <ImageButton
+                        android:id="@+id/btnPhotoRear"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="4dp"
+                        android:scaleType="centerInside"
+                        android:src="@android:drawable/ic_menu_camera" />
+
+                    <ImageButton
+                        android:id="@+id/btnPhotoLeft"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="4dp"
+                        android:scaleType="centerInside"
+                        android:src="@android:drawable/ic_menu_camera" />
+
+                    <ImageButton
+                        android:id="@+id/btnPhotoRight"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="4dp"
+                        android:scaleType="centerInside"
+                        android:src="@android:drawable/ic_menu_camera" />
+                </GridLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Notes -->
+        <EditText
+            android:id="@+id/etNotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:background="@android:color/white"
+            android:gravity="top"
+            android:hint="הערות כלליות (מצב פנימי, ציוד נלווה...)"
+            android:minLines="4"
+            android:padding="12dp" />
+
+        <Button
+            android:id="@+id/btnSubmitForm"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:backgroundTint="#014373"
+            android:text="שמור טופס ושלח לשרת"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+        <ProgressBar
+            android:id="@+id/pbFormLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -9,7 +9,11 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
+<<<<<<< Updated upstream
         <option name="scale" value="0.20511718749999996" />
+=======
+        <option name="scale" value="0.19542236328125" />
+>>>>>>> Stashed changes
       </ProjectState>
     </option>
   </component>

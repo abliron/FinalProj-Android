@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- The Yellow Plate Background -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FFD700" /> <!-- Yellow Gold -->
+            <corners android:radius="4dp" />
+            <stroke
+                android:width="2dp"
+                android:color="#000000" />
+        </shape>
+    </item>
+
+    <!-- The Blue Strip on the Left (Israeli Standard) -->
+    <item
+        android:width="15dp"
+        android:gravity="left">
+        <shape android:shape="rectangle">
+            <solid android:color="#0038B8" /> <!-- Israeli Blue -->
+            <corners
+                android:topLeftRadius="4dp"
+                android:bottomLeftRadius="4dp" />
+        </shape>
+    </item>
+</layer-list>

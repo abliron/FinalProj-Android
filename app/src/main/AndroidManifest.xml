@@ -23,7 +23,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SuccessActivity"
+            android:name=".SelectCompanyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DriversActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VehiclesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HandoverActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MenuActivity"
             android:exported="false" />
     </application>
 
