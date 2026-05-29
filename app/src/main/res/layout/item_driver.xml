@@ -13,7 +13,7 @@
         android:layout_weight="1.5"
         android:text="שם הנהג"
         android:gravity="right"
-        android:textColor="@android:color/black"
+        android:textColor="@color/text_primary"
         android:textSize="14sp" />
 
     <TextView
@@ -23,7 +23,7 @@
         android:layout_weight="1.5"
         android:text="מספר רישיון"
         android:gravity="center"
-        android:textColor="@android:color/black"
+        android:textColor="@color/text_primary"
         android:textSize="14sp" />
 
     <TextView
@@ -33,7 +33,7 @@
         android:layout_weight="1"
         android:text="ת.ז"
         android:gravity="left"
-        android:textColor="@android:color/black"
+        android:textColor="@color/text_primary"
         android:textSize="14sp" />
 
 </LinearLayout>

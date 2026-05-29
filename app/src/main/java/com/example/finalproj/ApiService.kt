@@ -27,7 +27,7 @@ interface ApiService {
 
     // קבלת רשימת חברות (למקרים של בחירת חברה לאחר התחברות)
     @GET("api/companies")
-    fun getCompanies(@Header("Authorization") selectionToken: String): Call<List<Company>>
+    fun getCompanies(@Header("Authorization") selectionToken: String): Call<okhttp3.ResponseBody>
 
     // שליחת טופס מסירת רכב עם תמונות
     @Multipart
@@ -39,6 +39,7 @@ interface ApiService {
         @Part("odometerAtHandover") odometer: RequestBody,
         @Part("fuelLevel") fuel: RequestBody,
         @Part("notes") notes: RequestBody,
+        @Part("handoverDate") handoverDate: RequestBody,
         @Part frontPhoto: MultipartBody.Part?,
         @Part rearPhoto: MultipartBody.Part?,
         @Part leftPhoto: MultipartBody.Part?,

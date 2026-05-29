@@ -9,8 +9,11 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -53,7 +56,14 @@ class HandoverActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContentView(R.layout.activity_handover)
+        
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         spinnerVehicles = findViewById(R.id.spinnerVehicles)
         spinnerDrivers = findViewById(R.id.spinnerDrivers)
@@ -138,6 +148,8 @@ class HandoverActivity : AppCompatActivity() {
         val odometerPart = etOdometer.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val fuelPart = etFuelLevel.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val notesPart = etNotes.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        val todayDate = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault()).format(java.util.Date())
+        val handoverDatePart = todayDate.toRequestBody("text/plain".toMediaTypeOrNull())
 
         val frontPart = bitmapToMultipart(photoBitmaps[R.id.btnPhotoFront], "frontPhoto")
         val rearPart = bitmapToMultipart(photoBitmaps[R.id.btnPhotoRear], "rearPhoto")
@@ -145,7 +157,7 @@ class HandoverActivity : AppCompatActivity() {
         val rightPart = bitmapToMultipart(photoBitmaps[R.id.btnPhotoRight], "rightPhoto")
 
         RetrofitClient.instance.submitHandoverForm(
-            token, driverId, vIdPart, odometerPart, fuelPart, notesPart,
+            token, driverId, vIdPart, odometerPart, fuelPart, notesPart, handoverDatePart,
             frontPart, rearPart, leftPart, rightPart
         ).enqueue(object : Callback<Unit> {
             override fun onResponse(call: Call<Unit>, response: Response<Unit>) {

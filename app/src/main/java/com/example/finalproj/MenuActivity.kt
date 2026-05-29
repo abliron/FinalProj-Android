@@ -4,12 +4,24 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 
 class MenuActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContentView(R.layout.activity_menu)
+        
+        findViewById<android.view.View>(R.id.main_menu_container)?.let { view ->
+            ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
+                val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+                insets
+            }
+        }
 
         val btnVehicles = findViewById<Button>(R.id.btnVehiclesList)
         val btnDrivers = findViewById<Button>(R.id.btnDriversList)

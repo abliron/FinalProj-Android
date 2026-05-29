@@ -53,10 +53,14 @@ class SingInPage : AppCompatActivity() {
                     val body = response.body()
                     Log.d(TAG, "Response body: $body")
                     
-                    if (body?.requiresCompanySelection == true) {
-                        Log.d(TAG, "Company selection required")
+                    // בדיקה אם נדרשת בחירת חברה או אם יש רשימת חברות
+                    val companiesList = body?.companies ?: body?.user?.userCompanies
+                    
+                    if (body?.requiresCompanySelection == true || (companiesList != null && companiesList.size > 1)) {
+                        Log.d(TAG, "Company selection required. Found ${companiesList?.size} companies")
                         val intent = Intent(this@SingInPage, SelectCompanyActivity::class.java)
-                        intent.putExtra("selectionToken", body.selectionToken)
+                        intent.putExtra("selectionToken", body?.selectionToken ?: body?.token)
+                        intent.putExtra("companiesList", ArrayList(companiesList ?: emptyList()))
                         startActivity(intent)
                         finish()
                         return

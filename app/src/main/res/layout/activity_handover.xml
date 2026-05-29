@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5">
+    android:background="@color/main_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +18,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="24dp"
             android:text="טופס קבלת/החזרת רכב"
-            android:textColor="#014373"
+            android:textColor="@color/main_title_color"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -26,6 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="@color/card_bg"
             app:cardCornerRadius="12dp"
             app:cardElevation="2dp">
 
@@ -39,7 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="פרטי רכב"
-                    android:textColor="#014373"
+                    android:textColor="@color/main_title_color"
                     android:textStyle="bold" />
 
                 <Spinner
@@ -70,6 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="@color/card_bg"
             app:cardCornerRadius="12dp"
             app:cardElevation="2dp">
 
@@ -83,7 +86,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="פרטי נהג"
-                    android:textColor="#014373"
+                    android:textColor="@color/main_title_color"
                     android:textStyle="bold" />
 
                 <Spinner
@@ -99,6 +102,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="@color/card_bg"
             app:cardCornerRadius="12dp"
             app:cardElevation="2dp">
 
@@ -113,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:text="תיעוד תמונות (חובה 4)"
-                    android:textColor="#014373"
+                    android:textColor="@color/main_title_color"
                     android:textStyle="bold" />
 
                 <GridLayout
@@ -161,25 +165,26 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Notes -->
         <EditText
             android:id="@+id/etNotes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:background="@android:color/white"
+            android:background="@color/card_bg"
             android:gravity="top"
             android:hint="הערות כלליות (מצב פנימי, ציוד נלווה...)"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_secondary"
             android:minLines="4"
             android:padding="12dp" />
 
         <Button
             android:id="@+id/btnSubmitForm"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:backgroundTint="#014373"
+            android:layout_height="49dp"
+            android:backgroundTint="@color/accent_button_bg"
             android:text="שמור טופס ושלח לשרת"
-            android:textColor="@android:color/white"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
         <ProgressBar

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_background"
     android:padding="24dp">
 
     <TextView
@@ -12,7 +14,7 @@
         android:text="בחר חברה להמשך"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:textColor="#014373"
+        android:textColor="@color/main_title_color"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +35,7 @@
         android:layout_height="wrap_content"
         android:text="אישור וכניסה"
         android:layout_marginTop="30dp"
-        android:backgroundTint="#14A192"
+        android:backgroundTint="@color/primary_button_bg"
         app:layout_constraintTop_toBottomOf="@id/spinnerCompanies"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

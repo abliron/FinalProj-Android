@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#5EBB6E"
+    android:background="@color/main_background"
     tools:context=".SingInPage">
 
     <ImageView
@@ -37,11 +37,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:backgroundTint="#48ADAB"
+        android:backgroundTint="@color/secondary_button_bg"
         android:ems="10"
         android:hint="User name:"
         android:inputType="text"
-        android:textColorLink="#014373"
+        android:textColor="@color/text_primary"
+        android:textColorHint="@color/text_secondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -51,11 +52,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:backgroundTint="#48ADAB"
+        android:backgroundTint="@color/secondary_button_bg"
         android:ems="10"
         android:hint="Password:"
         android:inputType="textPassword"
-        android:textColorLink="#014373"
+        android:textColor="@color/text_primary"
+        android:textColorHint="@color/text_secondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etSignInUsername" />
@@ -65,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:backgroundTint="#14A192"
+        android:backgroundTint="@color/primary_button_bg"
         android:text="Sign In"
         android:textAlignment="center"
         android:textAllCaps="true"

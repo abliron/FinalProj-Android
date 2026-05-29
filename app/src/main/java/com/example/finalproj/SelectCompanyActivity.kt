@@ -7,7 +7,13 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,15 +27,30 @@ class SelectCompanyActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContentView(R.layout.activity_select_company)
+        
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         selectionToken = intent.getStringExtra("selectionToken")
         Log.d(TAG, "Received selectionToken: $selectionToken")
         
+        val passedCompanies = intent.getSerializableExtra("companiesList") as? List<Company>
+        
         spinner = findViewById<Spinner>(R.id.spinnerCompanies)
         val btnConfirm = findViewById<Button>(R.id.btnConfirmCompany)
 
-        fetchCompanies()
+        if (!passedCompanies.isNullOrEmpty()) {
+            Log.d(TAG, "Using companies list passed from intent")
+            companies = passedCompanies
+            displayCompanies()
+        } else {
+            fetchCompanies()
+        }
 
         btnConfirm.setOnClickListener {
             if (companies.isNotEmpty()) {
@@ -53,23 +74,43 @@ class SelectCompanyActivity : AppCompatActivity() {
         val rawToken = selectionToken ?: ""
         val authHeader = if (rawToken.isNotEmpty()) "Bearer $rawToken" else ""
         
-        Log.d(TAG, "Fetching companies with header: $authHeader")
+        Log.d(TAG, "Fetching companies with header (token length: ${rawToken.length})")
         
-        RetrofitClient.instance.getCompanies(authHeader).enqueue(object : Callback<List<Company>> {
-            override fun onResponse(call: Call<List<Company>>, response: Response<List<Company>>) {
+        RetrofitClient.instance.getCompanies(authHeader).enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 Log.d(TAG, "Fetch companies response code: ${response.code()}")
                 if (response.isSuccessful) {
-                    companies = response.body() ?: emptyList()
-                    Log.d(TAG, "Fetched ${companies.size} companies: $companies")
+                    val rawJson = response.body()?.string() ?: ""
+                    Log.d(TAG, "RAW JSON RESPONSE: $rawJson")
                     
-                    if (companies.isEmpty()) {
-                        Toast.makeText(this@SelectCompanyActivity, "רשימת החברות ריקה", Toast.LENGTH_SHORT).show()
-                    }
+                    try {
+                        val gson = Gson()
+                        // ננסה לפענח קודם כרשימה פשוטה
+                        val listType = object : TypeToken<List<Company>>() {}.type
+                        var fetchedCompanies: List<Company>? = null
+                        
+                        if (rawJson.trim().startsWith("[")) {
+                            fetchedCompanies = gson.fromJson(rawJson, listType)
+                        } else if (rawJson.trim().startsWith("{")) {
+                            // אולי זה אובייקט שמכיל את הרשימה (למשל {"companies": [...]})
+                            val mapType = object : TypeToken<Map<String, Any>>() {}.type
+                            val map: Map<String, Any> = gson.fromJson(rawJson, mapType)
+                            Log.d(TAG, "JSON is an object. Keys: ${map.keys}")
+                            
+                            // ננסה לחפש מפתח שנראה כמו רשימת חברות
+                            val companiesJson = gson.toJson(map["companies"] ?: map["data"] ?: map["userCompanies"])
+                            fetchedCompanies = gson.fromJson(companiesJson, listType)
+                        }
 
-                    val companyNames = companies.map { it.name ?: "Unknown Company" }
-                    val adapter = ArrayAdapter(this@SelectCompanyActivity, android.R.layout.simple_spinner_item, companyNames)
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    spinner.adapter = adapter
+                        companies = fetchedCompanies ?: emptyList()
+                        Log.d(TAG, "Parsed ${companies.size} companies")
+
+                        displayCompanies()
+                        
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Error parsing JSON: ${e.message}", e)
+                        Toast.makeText(this@SelectCompanyActivity, "שגיאה בפענוח נתונים", Toast.LENGTH_SHORT).show()
+                    }
                 } else {
                     val errorBody = response.errorBody()?.string()
                     Log.e(TAG, "Failed to load companies. Code: ${response.code()}, Error: $errorBody")
@@ -77,11 +118,22 @@ class SelectCompanyActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<List<Company>>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Log.e(TAG, "Error fetching companies", t)
                 Toast.makeText(this@SelectCompanyActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun displayCompanies() {
+        if (companies.isEmpty()) {
+            Toast.makeText(this@SelectCompanyActivity, "רשימת החברות ריקה", Toast.LENGTH_SHORT).show()
+        }
+
+        val companyNames = companies.map { it.name ?: "Unknown Company" }
+        val adapter = ArrayAdapter(this@SelectCompanyActivity, android.R.layout.simple_spinner_item, companyNames)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
     }
 
     private fun confirmSelection(companyId: String) {
@@ -89,7 +141,7 @@ class SelectCompanyActivity : AppCompatActivity() {
         val authHeader = if (rawToken.isNotEmpty()) "Bearer $rawToken" else ""
         
         val request = mapOf(
-            "companyId" to companyId
+            "companyid" to companyId
         )
 
         RetrofitClient.instance.selectCompany(authHeader, request).enqueue(object : Callback<LoginResponse> {

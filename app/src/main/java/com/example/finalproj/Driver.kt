@@ -3,7 +3,7 @@ package com.example.finalproj
 import com.google.gson.annotations.SerializedName
 
 data class Driver(
-    @SerializedName("DriverID", alternate = ["id", "_id", "driverId"])
+    @SerializedName("DriverID", alternate = ["id", "_id", "driverId", "driverid"])
     val driverId: Int?,
     
     @SerializedName("FirstName", alternate = ["firstname", "firstName"])
