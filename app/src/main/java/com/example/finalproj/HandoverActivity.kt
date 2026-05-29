@@ -12,8 +12,10 @@ import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -132,10 +134,10 @@ class HandoverActivity : AppCompatActivity() {
         pbLoading.visibility = View.VISIBLE
         btnSubmit.isEnabled = false
 
-        val vIdPart = RequestBody.create(MediaType.parse("text/plain"), vehicleId.toString())
-        val odometerPart = RequestBody.create(MediaType.parse("text/plain"), etOdometer.text.toString())
-        val fuelPart = RequestBody.create(MediaType.parse("text/plain"), etFuelLevel.text.toString())
-        val notesPart = RequestBody.create(MediaType.parse("text/plain"), etNotes.text.toString())
+        val vIdPart = vehicleId.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        val odometerPart = etOdometer.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        val fuelPart = etFuelLevel.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        val notesPart = etNotes.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
 
         val frontPart = bitmapToMultipart(photoBitmaps[R.id.btnPhotoFront], "frontPhoto")
         val rearPart = bitmapToMultipart(photoBitmaps[R.id.btnPhotoRear], "rearPhoto")
@@ -171,7 +173,7 @@ class HandoverActivity : AppCompatActivity() {
         val stream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream)
         val byteArray = stream.toByteArray()
-        val requestBody = RequestBody.create(MediaType.parse("image/jpeg"), byteArray)
+        val requestBody = byteArray.toRequestBody("image/jpeg".toMediaTypeOrNull())
         return MultipartBody.Part.createFormData(partName, "$partName.jpg", requestBody)
     }
 }
